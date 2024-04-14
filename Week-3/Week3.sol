@@ -38,7 +38,7 @@ contract Week3 {
     // I know two rationals a,b that add up to num/den, i give you A, B, num and den
     function rationalAdd(ECPoint memory A, ECPoint memory B, uint256 num, uint256 den) public returns (bool verified) {
         
-        /*
+/* COMMENTED PART IS WRONG
         // Gnum
         uint256 ECNum_x = mulmod(G_x, num, order);
         uint256 ECNum_y = mulmod(G_y, num, order);
@@ -58,16 +58,35 @@ contract Week3 {
         return (addmod(A.x, B.x, order)) == ECFraction_x && (addmod(A.y, B.y, order)) == ECFraction_y;
     }
 
-    // multiply matrix by s, verify that Ms = o
     function matmul(uint256[] calldata matrix,
                 uint256 n, // n x n for the matrix
                 ECPoint[] calldata s, // n elements
                 uint256[] calldata o // n elements
-               ) public returns (bool verified) {
+               ) public returns (bool) {
 
-                // revert if dimensions don't make sense or the matrices are empty
-                require(matrix.length > 0 && matrix.length == n && s.length == n && o.length == n);
+        // revert if dimensions don't make sense or the matrices are empty
+        require(matrix.length > 0 && matrix.length == n*n && s.length == n && o.length == n);
 
-                // return true if Ms == o elementwise. You need to do n equality checks. If you're lazy, you can hardcode n to 3, but it is suggested that you do this with a for loop 
+        ECPoint[] memory result = new ECPoint[](n);
+
+        // return true if Ms == o elementwise. You need to do n equality checks. 
+        //If you're lazy, you can hardcode n to 3, but it is suggested that you do this with a for loop 
+        for(uint256 i = 0; i < n*n; i=i+n) {
+
+            uint256 result_x = 0;
+            uint256 result_y = 0;
+
+            for(uint256 j = 0; j < n; ++j) {
+                result_x = addmod(result_x, mulmod(matrix[i+j], s[j].x, order), order);
+                result_y = addmod(result_y, mulmod(matrix[i+j], s[j].y, order), order);
+            }
+                    
+            result[i/n] = ECPoint(result_x, result_y);
+        }
+
+        for(uint256 i = 0; i < n; ++i){
+            if(result[i].x != mulmod(G_x, o[i], order) && result[i].y != mulmod(G_y, o[i], order)) return false;
+        }
+        return true;
     }
 }

@@ -45,4 +45,36 @@ contract TestWeek3 is Test{
         assertTrue(testAddFractions(25, 0, 100, 4));
     }
 
+    function testMatMul() public {
+ /*       (uint256[] calldata matrix,
+                uint256 n, // n x n for the matrix
+                ECPoint[] calldata s, // n elements
+                uint256[] calldata o // n elements
+        ) */
+        uint256 n = 3;
+        uint256[] memory matrix = new uint256[](n*n);
+        matrix[0] = 1;
+        matrix[1] = 1;
+        matrix[2] = 1;
+        matrix[3] = 1;
+        matrix[4] = 1;
+        matrix[5] = 1;
+        matrix[6] = 1;
+        matrix[7] = 1;
+        matrix[8] = 1;
+
+        Week3.ECPoint[] memory s = new Week3.ECPoint[](n);
+        
+        s[0] = Week3.ECPoint(mulmod(G_x, 1, order), mulmod(G_y, 1, order));
+        s[1] = Week3.ECPoint(mulmod(G_x, 1, order), mulmod(G_y, 1, order));
+        s[2] = Week3.ECPoint(mulmod(G_x, 1, order), mulmod(G_y, 1, order));
+
+        uint256[] memory o = new uint256[](3);
+        o[0] = 3;
+        o[1] = 3;
+        o[2] = 3;
+
+        assertTrue(testCa.matmul(matrix, n, s, o));
+    }
+
 }
