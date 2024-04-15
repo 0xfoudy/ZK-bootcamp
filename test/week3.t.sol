@@ -19,7 +19,7 @@ contract TestWeek3 is Test{
 
     }
 
-    function testAddFractions(uint256 a, uint256 b, uint256 num, uint256 den) public returns (bool){
+    function testAddFractions(uint256 a, uint256 b, uint256 num, uint256 den) internal returns (bool){
         // Ga
         Week3.ECPoint memory A = Week3.ECPoint(mulmod(G_x, a, order), mulmod(G_y, a, order));
         // Gb
@@ -33,12 +33,17 @@ contract TestWeek3 is Test{
         assertTrue(testAddFractions(1, 1, 4, 2));
         assertTrue(testAddFractions(0, 2, 4, 2));
         assertTrue(testAddFractions(2, 0, 4, 2));
-        assertTrue(testAddFractions(3, 0, 6, 2));
+        assertTrue(testAddFractions(3, 0, 6, 2)); 
+    }
+
+function testH2() public {
         assertTrue(testAddFractions(0, 3, 6, 2));
         assertTrue(testAddFractions(1, 2, 6, 2));
         assertTrue(testAddFractions(2, 1, 6, 2));
+    }
 
 
+    function testH3() public {
         assertTrue(testAddFractions(12, 13, 100, 4));
         assertTrue(testAddFractions(24, 1, 100, 4));
         assertTrue(testAddFractions(1, 24, 100, 4));
