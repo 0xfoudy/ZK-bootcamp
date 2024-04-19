@@ -58,6 +58,16 @@ contract Week3 {
         return (addmod(A.x, B.x, order)) == ECFraction_x && (addmod(A.y, B.y, order)) == ECFraction_y;
     }
 
+    function addy6(ECPoint memory A, ECPoint memory B) public returns (ECPoint memory C) {
+        console.log(A.x);
+        console.log(A.y);
+        console.log(B.x);
+        console.log(B.y);
+        (bool ok, bytes memory result) = address(6).staticcall(abi.encode(A.x, A.y, B.x, B.y));
+        console.log(ok);
+        C = ECPoint(0,0);
+    }
+
     function matmul(uint256[] calldata matrix,
                 uint256 n, // n x n for the matrix
                 ECPoint[] calldata s, // n elements

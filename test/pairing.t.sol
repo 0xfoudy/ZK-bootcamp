@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 import "forge-std/Test.sol";
-import "../bilinear pairing/Pairings.sol";
+import "../Week-4/bilinear pairing/Pairings.sol";
 
 contract PairingsTest is Test {
     Pairings public pairings;

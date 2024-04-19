@@ -82,4 +82,17 @@ function testH2() public {
         assertTrue(testCa.matmul(matrix, n, s, o));
     }
 
+    function testAddy6() public {
+        /*
+        // Ga
+        Week3.ECPoint memory A = Week3.ECPoint(mulmod(G_x, 1, order), mulmod(G_y, 1, order));
+        // Gb
+        Week3.ECPoint memory B = Week3.ECPoint(mulmod(G_x, 2, order), mulmod(G_y, 2, order));
+*/
+        Week3.ECPoint memory A = Week3.ECPoint(1,2);
+        Week3.ECPoint memory B = Week3.ECPoint(1,2);
+
+        testCa.addy6(A, B);
+    }
+
 }
